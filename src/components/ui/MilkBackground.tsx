@@ -16,19 +16,47 @@ type Mascot = { x: number; y: number; s: number; kind: "guard" | "buddy" | "germ
 /**
  * Vị trí nhân vật trong khung 1440 x 800 (khung bị cắt bớt trên/dưới tùy chiều cao vùng chứa).
  * hero: trang chủ – đặt ở khoảng trống quanh chữ & ảnh. page: đầu trang con – lệch phải, giữa chiều cao.
- * mobile: true → vẫn hiện trên điện thoại.
+ * Trên điện thoại khung lớn bị cắt nhiều nên dùng lớp MobileMascots riêng (đặt theo góc).
  */
 const heroMascots: Mascot[] = [
   { x: 990, y: 158, s: 0.55, kind: "guard", tone: "green", rot: -4, anim: "a", delay: 0 },
-  { x: 610, y: 640, s: 0.7, kind: "guard", tone: "gold", rot: 3, anim: "b", delay: -4, mobile: true },
+  { x: 610, y: 640, s: 0.7, kind: "guard", tone: "gold", rot: 3, anim: "b", delay: -4 },
   { x: 1385, y: 640, s: 0.65, kind: "guard", tone: "green", flip: true, rot: -3, anim: "a", delay: -6 },
   { x: 50, y: 262, s: 0.46, kind: "buddy", tone: "gold", rot: 8, anim: "b", delay: -2 },
-  { x: 820, y: 330, s: 0.42, kind: "buddy", tone: "green", rot: -8, anim: "a", delay: -8, mobile: true },
+  { x: 820, y: 330, s: 0.42, kind: "buddy", tone: "green", rot: -8, anim: "a", delay: -8 },
 ];
 const pageMascots: Mascot[] = [
   { x: 1060, y: 420, s: 0.8, kind: "guard", tone: "green", rot: -3, anim: "a", delay: 0 },
   { x: 1370, y: 330, s: 0.55, kind: "buddy", tone: "gold", flip: true, rot: 8, anim: "b", delay: -4 },
 ];
+
+/** Hình nhỏ cho điện thoại: mỗi nhân vật là 1 SVG riêng, neo theo góc trên để không đè chữ */
+const VB_KNIGHT = "-75 -102 162 158";
+const VB_GUARD = "-75 -102 256 158";
+
+function MobileMascots({ variant }: { variant: "hero" | "page" }) {
+  if (variant === "hero") {
+    // Trang chủ: 2 hiệp sĩ hai bên nhãn "Sữa chua uống lợi khuẩn"
+    return (
+      <div className="md:hidden">
+        <svg viewBox={VB_KNIGHT} className="absolute left-1 top-1 w-[62px] opacity-45" aria-hidden>
+          <g className="float-b"><ProbioticBuddy tone="gold" /></g>
+        </svg>
+        <svg viewBox={VB_KNIGHT} className="absolute right-1 top-1 w-[62px] opacity-45" aria-hidden>
+          <g className="float-a"><ProbioticBuddy tone="green" flip /></g>
+        </svg>
+      </div>
+    );
+  }
+  // Trang con: hiệp sĩ chặn vi khuẩn ở góc trên bên phải
+  return (
+    <div className="md:hidden">
+      <svg viewBox={VB_GUARD} className="absolute right-2 top-1 w-[124px] opacity-45" aria-hidden>
+        <g className="float-a"><GuardScene tone="green" /></g>
+      </svg>
+    </div>
+  );
+}
 
 function MascotShape({ m }: { m: Mascot }) {
   const hide = m.mobile ? "" : "max-md:hidden";
@@ -83,7 +111,9 @@ export function MilkBackground({ variant = "hero" }: { variant?: "hero" | "page"
       <div className="absolute -right-24 top-10 h-96 w-96 rounded-full bg-pg-blue/10 blur-3xl" />
       {!short && <div className="absolute bottom-10 left-1/3 h-72 w-72 rounded-full bg-pg-green/10 blur-3xl" />}
 
-      {/* lớp xa: lợi khuẩn */}
+      <MobileMascots variant={short ? "page" : "hero"} />
+
+      {/* lớp xa: lợi khuẩn (máy tính / máy tính bảng) */}
       <m.div className="absolute inset-0" style={{ x: farMX, y: farMY }}>
         <svg className="h-full w-full" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice">
           <g opacity={0.32}>
