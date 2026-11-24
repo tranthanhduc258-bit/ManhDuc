@@ -46,7 +46,7 @@ export function PageHero({
         {kicker && <p className="mb-2 text-sm font-bold uppercase tracking-wider text-pg-green">{kicker}</p>}
         <h1 className="max-w-3xl text-3xl font-extrabold leading-tight md:text-5xl">{title}</h1>
         <span className={`mt-4 block h-1.5 w-20 rounded-full bg-gradient-to-r ${accentBar[accent]}`} />
-        {intro && <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink/80 md:text-lg">{intro}</p>}
+        {intro && <div className="mt-4 max-w-2xl text-base leading-relaxed text-ink/80 md:text-lg">{intro}</div>}
       </div>
       <MilkWave />
     </section>

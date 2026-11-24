@@ -44,6 +44,10 @@ export const BacteriaIcon = (p: P) => (
 );
 export const FlaskIcon = (p: P) => (<svg {...base(p)}><path d="M9 3h6M10 3v6L4.5 18.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3" /><path d="M7 15h10" /></svg>);
 
+export const BottleIcon = (p: P) => (<svg {...base(p)}><path d="M9.5 2.5h5v3l1.5 2.5v12a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 8 20V8l1.5-2.5z" /><path d="M8 12.5h8M8 16.5h8" /></svg>);
+export const HomeIcon = (p: P) => (<svg {...base(p)}><path d="M3 11l9-7 9 7" /><path d="M5 10v10h14V10" /><path d="M10 20v-5h4v5" /></svg>);
+export const StoreIcon = (p: P) => (<svg {...base(p)}><path d="M4 9l1.5-5h13L20 9" /><path d="M4 9a2.7 2.7 0 0 0 5.3 0 2.7 2.7 0 0 0 5.4 0A2.7 2.7 0 0 0 20 9" /><path d="M5 11.5V20h14v-8.5" /><path d="M10 20v-4.5h4V20" /></svg>);
+
 export const ZaloIcon = (p: P) => (
   <svg width={24} height={24} viewBox="0 0 48 48" aria-hidden {...p}>
     <text x="24" y="30" textAnchor="middle" fontSize="16" fontWeight="800" fontFamily="Arial, sans-serif" fill="currentColor">Zalo</text>

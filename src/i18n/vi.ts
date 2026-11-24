@@ -41,7 +41,12 @@ export const vi = {
   },
   products: {
     title: "Sản phẩm",
-    intro: "Chọn quy cách phù hợp – lốc nhỏ để thử, khay cho gia đình, thùng cho cửa hàng.",
+    intro: "Chọn quy cách phù hợp với bạn:",
+    sizes: [
+      { icon: "bottle", label: "Lốc nhỏ", text: "để dùng thử" },
+      { icon: "home", label: "Khay", text: "cho gia đình" },
+      { icon: "store", label: "Thùng", text: "cho cửa hàng, đại lý" },
+    ],
     all: "Tất cả",
     comingSoonText: "Sản phẩm mới đang được chuẩn bị. Đăng ký nhận tin qua Zalo để biết sớm nhất!",
     tabs: { description: "Mô tả", ingredients: "Thành phần", storage: "Hướng dẫn bảo quản", declaration: "Giấy công bố" },
