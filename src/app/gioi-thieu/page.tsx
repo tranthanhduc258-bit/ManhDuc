@@ -38,11 +38,11 @@ export default function AboutPage() {
           <p className="text-4xl md:text-6xl"><Slogan neon /></p>
           <div className="mt-8 grid gap-5 text-left md:grid-cols-2">
             <div className="rounded-3xl bg-pg-red/5 p-5">
-              <p className="text-2xl font-extrabold text-ink"><span className="text-3xl text-pg-red">P</span>{about.slogan.p.word.slice(1)}</p>
+              <p className="text-2xl font-extrabold text-pg-green"><span className="text-3xl text-pg-red">P</span>{about.slogan.p.word.slice(1)}</p>
               <p className="mt-2 text-ink/80">{about.slogan.p.text}</p>
             </div>
             <div className="rounded-3xl bg-pg-blue/5 p-5">
-              <p className="text-2xl font-extrabold text-ink"><span className="text-3xl text-pg-blue">G</span>{about.slogan.g.word.slice(1)}</p>
+              <p className="text-2xl font-extrabold text-pg-green"><span className="text-3xl text-pg-logo-blue">G</span>{about.slogan.g.word.slice(1)}</p>
               <p className="mt-2 text-ink/80">{about.slogan.g.text}</p>
             </div>
           </div>
