@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { clientIp, findDuplicate, rateLimited, remember } from "./guard";
+import { getDestination } from "./orderDestination";
 import { clean } from "./validation";
 
 export type Body = Record<string, unknown>;
@@ -37,13 +38,17 @@ export async function withDedupe(
   run: () => Promise<string>,
 ): Promise<NextResponse> {
   const dup = findDuplicate(keys);
-  if (dup) return NextResponse.json({ ok: true, code: dup, duplicate: true });
+  if (dup) {
+    console.log(`[submit] trùng -> trả lại mã cũ ${dup} (${keys[0]})`);
+    return NextResponse.json({ ok: true, code: dup, duplicate: true });
+  }
   try {
     const code = await run();
     remember(keys, code);
+    console.log(`[submit] OK ${code} -> ${getDestination().name}`);
     return NextResponse.json({ ok: true, code });
   } catch (e) {
-    console.error("[submit]", e);
+    console.error("[submit] LỖI", keys[0], e);
     return fail(502, "Hệ thống đang bận, vui lòng thử lại hoặc gọi hotline.");
   }
 }
