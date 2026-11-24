@@ -19,10 +19,10 @@ type Mascot = { x: number; y: number; s: number; kind: "guard" | "buddy" | "germ
  * mobile: true → vẫn hiện trên điện thoại.
  */
 const heroMascots: Mascot[] = [
-  { x: 990, y: 128, s: 0.6, kind: "guard", tone: "green", rot: -4, anim: "a", delay: 0 },
-  { x: 610, y: 655, s: 0.75, kind: "guard", tone: "gold", rot: 3, anim: "b", delay: -4, mobile: true },
-  { x: 1385, y: 655, s: 0.7, kind: "guard", tone: "green", flip: true, rot: -3, anim: "a", delay: -6 },
-  { x: 40, y: 430, s: 0.55, kind: "buddy", tone: "gold", rot: 8, anim: "b", delay: -2 },
+  { x: 990, y: 158, s: 0.55, kind: "guard", tone: "green", rot: -4, anim: "a", delay: 0 },
+  { x: 610, y: 640, s: 0.7, kind: "guard", tone: "gold", rot: 3, anim: "b", delay: -4, mobile: true },
+  { x: 1385, y: 640, s: 0.65, kind: "guard", tone: "green", flip: true, rot: -3, anim: "a", delay: -6 },
+  { x: 50, y: 262, s: 0.46, kind: "buddy", tone: "gold", rot: 8, anim: "b", delay: -2 },
   { x: 820, y: 330, s: 0.42, kind: "buddy", tone: "green", rot: -8, anim: "a", delay: -8, mobile: true },
 ];
 const pageMascots: Mascot[] = [
