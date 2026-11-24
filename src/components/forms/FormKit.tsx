@@ -82,22 +82,32 @@ export function Field({
   name: string; label: string; error?: string; required?: boolean; as?: "input" | "textarea" | "select"; children?: React.ReactNode; className?: string;
 } & React.InputHTMLAttributes<HTMLInputElement> & React.TextareaHTMLAttributes<HTMLTextAreaElement> & React.SelectHTMLAttributes<HTMLSelectElement>) {
   const id = `f-${name}`;
+  // Đánh dấu ô đã điền hợp lệ → viền xanh lá + dấu ✓ (CSS: .field[data-filled="true"])
+  const mark = (e: React.SyntheticEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const el = e.currentTarget;
+    const v = el.value.trim();
+    let ok = v.length > 0;
+    if (name === "phone") ok = isValidVnPhone(v);
+    if (name === "email" && v) ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    el.dataset.filled = ok ? "true" : "false";
+  };
   const common = {
     id, name, "aria-invalid": error ? true : undefined, "aria-describedby": error ? `${id}-err` : undefined, className: "field", required,
+    onInput: mark, onBlur: mark,
   };
   return (
-    <div className={className}>
+    <div className={`field-wrap ${className}`}>
       <label htmlFor={id} className="label">
         {label} {required && <span className="text-pg-red">*</span>}
       </label>
       {as === "textarea" ? (
         <textarea rows={3} {...(rest as React.TextareaHTMLAttributes<HTMLTextAreaElement>)} {...common} />
       ) : as === "select" ? (
-        <select {...(rest as React.SelectHTMLAttributes<HTMLSelectElement>)} {...common}>{children}</select>
+        <select {...(rest as React.SelectHTMLAttributes<HTMLSelectElement>)} {...common} onChange={mark}>{children}</select>
       ) : (
         <input {...(rest as React.InputHTMLAttributes<HTMLInputElement>)} {...common} />
       )}
-      {error && <p id={`${id}-err`} className="mt-1 text-sm font-medium text-pg-red">{error}</p>}
+      {error && <p id={`${id}-err`} className="field-error mt-1 text-sm font-medium text-pg-red">{error}</p>}
     </div>
   );
 }

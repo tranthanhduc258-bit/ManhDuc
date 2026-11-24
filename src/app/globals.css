@@ -145,10 +145,40 @@ h1, h2, h3, h4 { color: var(--color-pg-blue); letter-spacing: -0.01em; }
 .prose-pg li::marker { color: var(--color-pg-green); }
 
 /* ===== FORM ===== */
-.field { display: block; width: 100%; min-height: 48px; border-radius: 14px; border: 1.5px solid rgba(30, 58, 120, 0.18); background: #fff; padding: 0.7rem 0.95rem; font-size: 16px; transition: border-color 0.2s, box-shadow 0.2s; }
-.field:focus { outline: none; border-color: var(--color-pg-blue); box-shadow: 0 0 0 4px rgba(30, 58, 120, 0.1); }
-.field[aria-invalid="true"] { border-color: var(--color-pg-red); }
-.label { display: block; font-weight: 600; font-size: 0.92rem; margin-bottom: 0.35rem; color: var(--color-pg-blue); }
+.field {
+  display: block; width: 100%; min-height: 48px; border-radius: 14px; border: 1.5px solid rgba(30, 58, 120, 0.18);
+  background: #fff; padding: 0.7rem 0.95rem; font-size: 16px;
+  transition: border-color 0.2s, box-shadow 0.25s, transform 0.2s, background-color 0.2s;
+}
+.field:hover { border-color: rgba(30, 58, 120, 0.4); }
+/* Ô đang nhập: viền xanh phát sáng, nổi lên nhẹ */
+.field:focus {
+  outline: none; border-color: #1f4fa8; background: #fdfeff; transform: translateY(-1px);
+  box-shadow: 0 0 0 4px rgba(31, 79, 168, 0.14), 0 0 18px rgba(44, 99, 214, 0.25), 0 10px 24px -14px rgba(30, 58, 120, 0.5);
+}
+/* Ô đã điền hợp lệ: viền xanh lá + dấu ✓ */
+.field[data-filled="true"]:not(:focus):not([aria-invalid="true"]) {
+  border-color: var(--color-pg-green); background-color: #fbfffb;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233A9A3F' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 0.9rem center; background-size: 18px; padding-right: 2.6rem;
+}
+select.field[data-filled="true"]:not(:focus):not([aria-invalid="true"]) { background-position: right 2.2rem center; }
+textarea.field[data-filled="true"]:not(:focus) { background-position: right 0.9rem top 0.85rem; }
+/* Ô lỗi: viền đỏ + rung nhẹ */
+.field[aria-invalid="true"] { border-color: var(--color-pg-red); background: #fffafa; animation: field-shake 0.4s ease; }
+.field[aria-invalid="true"]:focus { box-shadow: 0 0 0 4px rgba(215, 25, 32, 0.14), 0 0 16px rgba(215, 25, 32, 0.22); }
+@keyframes field-shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-6px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
+.field-error { animation: fade-down 0.25s ease; }
+@keyframes fade-down { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+.label { display: inline-flex; align-items: center; gap: 0.35rem; font-weight: 600; font-size: 0.92rem; margin-bottom: 0.35rem; color: var(--color-pg-blue); transition: color 0.2s, transform 0.2s; }
+.label::before { content: ""; width: 0; height: 7px; border-radius: 99px; background: #1f4fa8; transition: width 0.25s ease; }
+.field-wrap:focus-within .label { color: #1f4fa8; transform: translateX(2px); }
+.field-wrap:focus-within .label::before { width: 14px; }
+
+/* Thẻ chọn sản phẩm: viền đỏ phát sáng khi đã chọn */
+.pick-card.is-on { box-shadow: 0 0 0 3px rgba(215, 25, 32, 0.12), 0 0 18px rgba(215, 25, 32, 0.18), 0 12px 24px -16px rgba(215, 25, 32, 0.5); }
+@media (hover: hover) { .pick-card:not(.is-on):hover { box-shadow: 0 10px 24px -18px rgba(30, 58, 120, 0.55); } }
 .hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
 
 
