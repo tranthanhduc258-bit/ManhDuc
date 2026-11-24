@@ -8,7 +8,7 @@ import { t } from "@/i18n";
 import { Consent, Field, FormMessage, Honeypot, formToObject, useSubmit, validate } from "./FormKit";
 
 export function DealerForm() {
-  const { submit, sending, errors, setErrors, message } = useSubmit("/api/dealer");
+  const { submit, sending, errors, setErrors, message, clearError } = useSubmit("/api/dealer");
   const [done, setDone] = useState<string | null>(null);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -31,7 +31,7 @@ export function DealerForm() {
     );
 
   return (
-    <form onSubmit={onSubmit} noValidate className="space-y-4 rounded-3xl bg-white p-5 ring-1 ring-pg-blue/5 md:p-7">
+    <form onSubmit={onSubmit} onChange={clearError} noValidate className="space-y-4 rounded-3xl bg-white p-5 ring-1 ring-pg-blue/5 md:p-7">
       <Honeypot />
       <div className="grid gap-4 sm:grid-cols-2">
         <Field name="name" label="Họ và tên" required autoComplete="name" error={errors.name} />
@@ -51,7 +51,7 @@ export function DealerForm() {
       <Consent error={errors.consent} />
       <FormMessage text={message} />
       <button type="submit" disabled={sending} className="btn btn-gold neon-border-gold w-full text-lg">
-        {sending ? t.checkout.sending : t.common.registerDealer}
+        {sending ? t.order.sending : t.common.registerDealer}
       </button>
     </form>
   );

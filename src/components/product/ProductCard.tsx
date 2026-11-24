@@ -1,15 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { canBuy, type Product } from "@/data/products";
+import type { Product } from "@/data/products";
 import { Price } from "@/components/ui/Price";
-import { AddToCartButton } from "./AddToCartButton";
-import { PhoneIcon } from "@/components/Icons";
-import { site } from "@/data/site";
 import { t } from "@/i18n";
 
 export function ProductCard({ product, priority = false }: { product: Product; priority?: boolean }) {
   const href = `/san-pham/${product.slug}`;
-  const buyable = canBuy(product);
   return (
     <article data-product-card className="product-card group relative flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-[0_8px_24px_-16px_rgba(30,58,120,.35)] ring-1 ring-pg-blue/5">
       <Link href={href} className="relative block aspect-[4/3] overflow-hidden bg-cream" aria-label={product.name}>
@@ -33,13 +29,7 @@ export function ProductCard({ product, priority = false }: { product: Product; p
           <Link href={href} className="text-sm font-semibold text-pg-blue underline-offset-4 hover:underline">{t.common.viewDetail}</Link>
         </div>
         <div className="card-action mt-4">
-          {buyable ? (
-            <AddToCartButton slug={product.slug} className="btn btn-red w-full" />
-          ) : (
-            <a href={site.zaloUrl} target="_blank" rel="noopener noreferrer" className="btn btn-blue w-full">
-              <PhoneIcon width={18} height={18} /> {t.products.contactForPrice}
-            </a>
-          )}
+          <Link href={`/mua-hang?sp=${product.slug}`} className="btn btn-red w-full">{t.common.orderNow}</Link>
         </div>
       </div>
     </article>

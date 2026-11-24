@@ -16,8 +16,8 @@ export type OrderRecord = {
   province: string;
   address: string;
   note: string;
-  payment: "COD" | "Chuyển khoản";
   items: OrderItem[];
+  /** Tạm tính; 0 nếu có sản phẩm chưa có giá */
   total: number;
   status: string;
 };

@@ -17,7 +17,7 @@ export function Footer() {
         <div className="col-span-2 md:col-span-5">
           <div className="inline-flex items-center gap-3 rounded-2xl bg-milk px-3 py-2">
             <Image src={site.logo} alt="PG Food" width={462} height={394} className="h-14 w-auto" sizes="70px" />
-            <Slogan className="text-lg text-pg-blue" />
+            <Slogan className="text-lg" />
           </div>
           <p className="mt-4 text-[15px] font-bold uppercase tracking-wide text-white">{site.companyName}</p>
           <p className="text-sm text-white/70">{site.companyNameEn}</p>

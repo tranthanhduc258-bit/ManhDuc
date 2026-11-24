@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { BuyBox } from "@/components/product/BuyBox";
+import { OrderButton } from "@/components/product/OrderButton";
 import { Gallery } from "@/components/product/Gallery";
 import { ProductCard } from "@/components/product/ProductCard";
 import { ProductTabs } from "@/components/product/ProductTabs";
 import { CheckIcon, ChevronIcon } from "@/components/Icons";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { Price } from "@/components/ui/Price";
-import { canBuy, defaultProductInfo, getProduct, products } from "@/data/products";
+import { defaultProductInfo, getProduct, products } from "@/data/products";
 import { categories } from "@/data/categories";
 import { pageMeta, productLd } from "@/lib/seo";
 import { t } from "@/i18n";
@@ -65,7 +65,8 @@ export default async function ProductDetail({ params }: Props) {
                 </li>
               ))}
             </ul>
-            <div className="mt-6"><BuyBox slug={p.slug} buyable={canBuy(p)} /></div>
+            <div className="mt-6"><OrderButton slug={p.slug} /></div>
+            <p className="mt-3 text-sm text-ink/70">Không cần thanh toán trước – nhân viên PG Food sẽ gọi xác nhận đơn.</p>
           </div>
         </div>
 

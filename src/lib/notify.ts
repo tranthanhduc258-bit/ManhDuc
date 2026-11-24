@@ -10,14 +10,16 @@ const on = (v: string | undefined, dflt: boolean) =>
   v === undefined || v === "" ? dflt : !["0", "false", "off", "no"].includes(v.toLowerCase());
 
 export function orderMessage(o: OrderRecord) {
-  const lines = o.items.map((i) => `• ${esc(i.name)} x${i.qty} = ${formatVnd(i.lineTotal)}`).join("\n");
+  const lines = o.items
+    .map((i) => `• ${esc(i.name)} x${i.qty}${i.unitPrice ? ` = ${formatVnd(i.lineTotal)}` : " (giá: liên hệ)"}`)
+    .join("\n");
   return [
     `🛒 <b>ĐƠN HÀNG MỚI ${o.code}</b>`,
     `🕒 ${o.createdAt}`,
     `👤 ${esc(o.name)} – <b>${esc(o.phone)}</b>`,
     `📍 ${esc(o.address)}, ${esc(o.province)}`,
     lines,
-    `💰 Tổng: <b>${formatVnd(o.total)}</b> (${o.payment})`,
+    o.total ? `💰 Tạm tính: <b>${formatVnd(o.total)}</b>` : "💰 Giá: nhân viên báo khi chốt đơn",
     o.note ? `📝 ${esc(o.note)}` : "",
   ].filter(Boolean).join("\n");
 }

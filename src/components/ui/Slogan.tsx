@@ -8,7 +8,7 @@ export function Slogan({ neon = false, className = "" }: { neon?: boolean; class
       </span>
     );
   return (
-    <span className={`font-bold ${className}`}>
+    <span className={`font-bold text-ink ${className}`}>
       <span className="text-pg-red">P</span>lan <span className="text-pg-blue">G</span>rowth
     </span>
   );

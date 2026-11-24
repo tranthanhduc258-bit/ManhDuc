@@ -6,7 +6,7 @@ import { t } from "@/i18n";
 import { Consent, Field, FormMessage, Honeypot, formToObject, useSubmit, validate } from "./FormKit";
 
 export function ContactForm() {
-  const { submit, sending, errors, setErrors, message } = useSubmit("/api/contact");
+  const { submit, sending, errors, setErrors, message, clearError } = useSubmit("/api/contact");
   const [done, setDone] = useState(false);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -30,7 +30,7 @@ export function ContactForm() {
     );
 
   return (
-    <form onSubmit={onSubmit} noValidate className="space-y-4 rounded-3xl bg-white p-5 ring-1 ring-pg-blue/5 md:p-7">
+    <form onSubmit={onSubmit} onChange={clearError} noValidate className="space-y-4 rounded-3xl bg-white p-5 ring-1 ring-pg-blue/5 md:p-7">
       <Honeypot />
       <div className="grid gap-4 sm:grid-cols-2">
         <Field name="name" label="Họ và tên" required autoComplete="name" error={errors.name} />
@@ -40,7 +40,7 @@ export function ContactForm() {
       <Field as="textarea" name="message" label="Nội dung" required rows={4} error={errors.message} />
       <Consent error={errors.consent} />
       <FormMessage text={message} />
-      <button type="submit" disabled={sending} className="btn btn-blue w-full text-lg">{sending ? t.checkout.sending : "Gửi liên hệ"}</button>
+      <button type="submit" disabled={sending} className="btn btn-blue w-full text-lg">{sending ? t.order.sending : "Gửi liên hệ"}</button>
     </form>
   );
 }

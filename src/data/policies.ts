@@ -114,7 +114,7 @@ export const policies: Policy[] = [
       { type: "h2", text: "Lưu trữ dữ liệu" },
       {
         type: "p",
-        text: "Thông tin giỏ hàng được lưu ngay trên trình duyệt của quý khách (localStorage) và có thể xóa bất cứ lúc nào. Thông tin đơn hàng được lưu trữ an toàn phục vụ việc giao hàng và chăm sóc khách hàng.",
+        text: "Thông tin đơn hàng được lưu trữ an toàn phục vụ việc giao hàng và chăm sóc khách hàng.",
       },
       { type: "h2", text: "Quyền của quý khách" },
       {

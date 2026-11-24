@@ -1,6 +1,8 @@
 # Website PG Food – Phạm Group
 
-Website bán hàng & tuyển đại lý cho **PG Food** (Công ty TNHH Tập đoàn Phạm Group).
+Website giới thiệu sản phẩm, nhận đơn & tuyển đại lý cho **PG Food** (Công ty TNHH Tập đoàn Phạm Group).
+
+**Cách bán hàng:** không có giỏ hàng / thanh toán online. Khách vào trang **Liên hệ mua hàng** (`/mua-hang`), tích chọn sản phẩm + số lượng, để lại thông tin → đơn được gửi về **Gmail** và ghi vào **Google Sheet** → nhân viên gọi/nhắn Zalo chốt đơn, thu tiền khi giao (COD) hoặc chuyển khoản sau khi xác nhận.
 Next.js 16 (App Router) · TypeScript · Tailwind CSS 4 · Framer Motion · deploy trên Vercel.
 
 ## Chạy trên máy tính
@@ -27,13 +29,14 @@ npm run build      # kiểm tra trước khi đưa lên
 
 ### Sửa giá
 Mở `src/data/products.ts`, đổi `retailPrice: 0` thành giá (đơn vị đồng, không dấu chấm), ví dụ `retailPrice: 25000`.
-- `0` → web hiện **"Liên hệ"** và ẩn nút thêm vào giỏ.
-- Giá tính tiền luôn lấy từ file này trên máy chủ (khách không sửa được giá).
+- `0` → web hiện **"Liên hệ"**; khách vẫn chọn được sản phẩm để đặt mua.
+- Có giá → hiện giá (neon đỏ) và tạm tính ở trang Liên hệ mua hàng. Giá luôn lấy từ file này trên máy chủ.
 
 ### Thêm sản phẩm
 1. Chép ảnh vào `public/products/` (ví dụ `sua-chua-dau.jpg`).
 2. Trong `products.ts` chép 1 khối `{ ... }` rồi sửa `slug` (không dấu, gạch ngang), `name`, `size`, `retailPrice`, `images`, `highlights`.
 3. `status: "coming-soon"` để hiện ô "Sắp ra mắt". `featured: true` để hiện ở trang chủ (tối đa 3).
+   Sản phẩm `available` tự xuất hiện trong danh sách tích chọn ở trang Liên hệ mua hàng.
 4. Muốn tab Thành phần / Giấy công bố riêng: thêm `ingredients`, `declarationImages: ["/cong-bo/abc.jpg"]`.
 
 ### Ảnh giấy phép kinh doanh, logo Bộ Công Thương
@@ -43,14 +46,14 @@ Chép ảnh vào `public/`, rồi khai báo trong `site.ts` (`businessLicenseIma
 ## Nơi nhận đơn
 
 Đơn hàng, đăng ký đại lý, liên hệ → `src/lib/orderDestination.ts`, chọn bằng biến `ORDER_DESTINATION`:
-- `google-sheets` – ghi vào Google Sheet (mặc định). Hướng dẫn: **[HUONG-DAN-GOOGLE-SHEET.md](HUONG-DAN-GOOGLE-SHEET.md)**
-- `console` – chỉ ghi log (thử nghiệm)
+- `google-sheets` – Google Apps Script ghi vào Google Sheet **và gửi email về Gmail** (mặc định). Hướng dẫn: **[HUONG-DAN-GOOGLE-SHEET.md](HUONG-DAN-GOOGLE-SHEET.md)**. Email nhận đơn đặt ở dòng `EMAIL_TO` trong `google-apps-script/Code.gs`.
+- `console` – chỉ ghi log trên Vercel (khi chưa cài Google Sheet)
 
-Báo đơn tức thì: Telegram (`TELEGRAM_*`) và/hoặc email Resend (`EMAIL_*`). Xem `.env.example`.
+Tùy chọn thêm: báo qua Telegram (`TELEGRAM_*`) hoặc email qua Resend (`EMAIL_*`). Xem `.env.example`.
 
 **Đổi sang Haravan / Sapo / KiotViet sau này:** viết thêm 1 "destination" trong `orderDestination.ts` (3 hàm `saveOrder`, `saveDealer`, `saveContact`) – không phải sửa giao diện.
 
-Đã có sẵn: kiểm tra SĐT Việt Nam, chống gửi trùng (máy chủ + Apps Script), ô bẫy spam (honeypot), giới hạn tốc độ gửi, bắt buộc đồng ý chính sách bảo mật, mã đơn dạng `PG-YYMMDD-XXXX`, giỏ hàng lưu trong trình duyệt.
+Đã có sẵn: kiểm tra SĐT Việt Nam, chống gửi trùng (máy chủ + Apps Script), ô bẫy spam (honeypot), giới hạn tốc độ gửi, bắt buộc đồng ý chính sách bảo mật, mã đơn dạng `PG-YYMMDD-XXXX`.
 
 ## Đưa lên Vercel
 
@@ -70,12 +73,13 @@ Báo đơn tức thì: Telegram (`TELEGRAM_*`) và/hoặc email Resend (`EMAIL_*
 
 ## Cấu trúc trang
 
-`/` Trang chủ · `/gioi-thieu` · `/san-pham` · `/san-pham/[slug]` · `/gio-hang` · `/dat-hang` · `/dai-ly` · `/kien-thuc` · `/kien-thuc/[slug]` · `/lien-he` · `/chinh-sach/(giao-hang|doi-tra|bao-mat|thanh-toan)`
+`/` Trang chủ · `/gioi-thieu` · `/san-pham` · `/san-pham/[slug]` · `/mua-hang` (Liên hệ mua hàng) · `/dai-ly` · `/kien-thuc` · `/kien-thuc/[slug]` · `/lien-he` · `/chinh-sach/(giao-hang|doi-tra|bao-mat|thanh-toan)`
 
 ## Việc anh cần điền (tìm chữ `TODO` trong `src/data/`)
 
 - [ ] Giá bán lẻ 3 sản phẩm
 - [ ] Thành phần sản phẩm theo nhãn phụ / hồ sơ công bố, ảnh giấy công bố
 - [ ] Thời gian, phí giao hàng; thời hạn đổi trả
-- [ ] Thông tin tài khoản ngân hàng
+- [ ] Thông tin tài khoản ngân hàng (nếu muốn hiện)
+- [ ] Cài Google Sheet + Gmail theo HUONG-DAN-GOOGLE-SHEET.md
 - [ ] Ảnh giấy phép kinh doanh (đã che thông tin cá nhân), logo Bộ Công Thương khi có

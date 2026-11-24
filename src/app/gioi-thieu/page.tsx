@@ -35,15 +35,14 @@ export default function AboutPage() {
 
       <section className="mx-auto mt-14 max-w-6xl px-4">
         <div className="rounded-[2rem] bg-white p-6 text-center ring-1 ring-pg-gold/30 md:p-10">
-          <p className="text-sm font-bold uppercase tracking-wider text-pg-gold-dark">Ý nghĩa slogan</p>
-          <p className="mt-2 text-4xl md:text-6xl"><Slogan neon /></p>
+          <p className="text-4xl md:text-6xl"><Slogan neon /></p>
           <div className="mt-8 grid gap-5 text-left md:grid-cols-2">
             <div className="rounded-3xl bg-pg-red/5 p-5">
-              <p className="text-2xl font-extrabold"><span className="text-pg-red">P</span><span className="text-pg-blue">{about.slogan.p.word.slice(1)}</span></p>
+              <p className="text-2xl font-extrabold text-ink"><span className="text-3xl text-pg-red">P</span>{about.slogan.p.word.slice(1)}</p>
               <p className="mt-2 text-ink/80">{about.slogan.p.text}</p>
             </div>
             <div className="rounded-3xl bg-pg-blue/5 p-5">
-              <p className="text-2xl font-extrabold text-pg-blue">{about.slogan.g.word}</p>
+              <p className="text-2xl font-extrabold text-ink"><span className="text-3xl text-pg-blue">G</span>{about.slogan.g.word.slice(1)}</p>
               <p className="mt-2 text-ink/80">{about.slogan.g.text}</p>
             </div>
           </div>

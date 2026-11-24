@@ -1,7 +1,7 @@
 /**
  * DỮ LIỆU SẢN PHẨM
  * - Thêm sản phẩm mới: chép 1 khối { ... } và sửa lại, web tự hiện ra.
- * - retailPrice = 0  → hiện chữ "Liên hệ" và ẩn nút thêm vào giỏ.
+ * - retailPrice = 0  → hiện chữ "Liên hệ" (khách vẫn chọn được sản phẩm ở trang Liên hệ mua hàng).
  * - status: "available" (đang bán) | "coming-soon" (sắp ra mắt).
  * - Ảnh đặt trong thư mục public/products/.
  */
@@ -71,4 +71,3 @@ export const products: Product[] = [
 ];
 
 export const getProduct = (slug: string) => products.find((p) => p.slug === slug);
-export const canBuy = (p: Product) => p.status === "available" && p.retailPrice > 0;

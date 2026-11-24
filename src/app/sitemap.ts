@@ -6,7 +6,7 @@ import { siteUrl } from "@/data/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const staticPages = ["", "/gioi-thieu", "/san-pham", "/dai-ly", "/kien-thuc", "/lien-he", "/chinh-sach"];
+  const staticPages = ["", "/gioi-thieu", "/san-pham", "/dai-ly", "/kien-thuc", "/mua-hang", "/lien-he", "/chinh-sach"];
   return [
     ...staticPages.map((p) => ({ url: `${siteUrl}${p}`, lastModified: now, changeFrequency: "weekly" as const, priority: p === "" ? 1 : 0.8 })),
     ...products.map((p) => ({ url: `${siteUrl}/san-pham/${p.slug}`, lastModified: now, priority: 0.9 })),

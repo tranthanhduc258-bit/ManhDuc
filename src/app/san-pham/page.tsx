@@ -13,7 +13,7 @@ export const metadata: Metadata = pageMeta({
 export default function ProductsPage() {
   return (
     <>
-      <PageHero title={t.products.title} intro={t.products.intro} crumbs={[{ label: t.products.title }]} accent="red" kicker="PG Food" />
+      <PageHero title={t.products.title} intro={t.products.intro} crumbs={[{ label: t.products.title }]} accent="red" />
       <section className="mx-auto max-w-6xl px-4 pt-6">
         <ProductGrid />
       </section>

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
-import { useCart } from "@/components/cart/CartContext";
 import { CartIcon, CloseIcon, MenuIcon, PhoneIcon } from "@/components/Icons";
 import { site } from "@/data/site";
 import { t } from "@/i18n";
@@ -15,24 +14,11 @@ import { navItems } from "./nav";
 
 const isActive = (path: string, href: string) => (href === "/" ? path === "/" : path === href || path.startsWith(href + "/"));
 
-function CartButton() {
-  const { count, bump, ready } = useCart();
+function OrderButton() {
   return (
-    <Link
-      href="/gio-hang"
-      data-cart-target
-      aria-label={`${t.nav.cart}${ready && count ? ` (${count})` : ""}`}
-      className="relative grid h-11 w-11 place-items-center rounded-full bg-cream text-pg-blue transition hover:bg-pg-blue hover:text-white"
-    >
-      <CartIcon />
-      {ready && count > 0 && (
-        <span
-          key={bump}
-          className="cart-bump absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-pg-red px-1 text-[11px] font-bold text-white ring-2 ring-milk"
-        >
-          {count > 99 ? "99+" : count}
-        </span>
-      )}
+    <Link href="/mua-hang" className="btn btn-red min-h-11 px-4 py-2 text-[15px] md:px-5">
+      <CartIcon width={20} height={20} />
+      <span>{t.nav.order}</span>
     </Link>
   );
 }
@@ -85,7 +71,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <CartButton />
+          <OrderButton />
           <button
             type="button"
             onClick={() => setOpen(true)}

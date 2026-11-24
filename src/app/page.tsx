@@ -7,7 +7,6 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Slogan } from "@/components/ui/Slogan";
 import { strengths } from "@/data/home";
 import { products } from "@/data/products";
-import { site } from "@/data/site";
 import { t } from "@/i18n";
 
 const strengthIcon = { ferment: ClockIcon, probiotic: BacteriaIcon, delivery: TruckIcon } as const;
@@ -23,21 +22,16 @@ export default function HomePage() {
         <MilkBackground />
         <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 md:grid-cols-2 md:gap-10">
           <div className="text-center md:text-left">
-            <Image
-              src={site.logo}
-              alt="Logo PG Food"
-              width={462}
-              height={394}
-              sizes="(max-width: 768px) 150px, 190px"
-              className="mx-auto h-auto w-[150px] drop-shadow-[0_8px_20px_rgba(30,58,120,.18)] md:mx-0 md:w-[190px]"
-            />
-            <p className="mt-3 text-4xl tracking-tight md:text-6xl">
+            <p className="inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-1.5 text-sm font-bold text-pg-green ring-1 ring-pg-green/20">
+              <span className="nav-dot" aria-hidden /> {t.home.heroKicker}
+            </p>
+            <p className="mt-4 text-5xl tracking-tight md:text-7xl">
               <Slogan neon />
             </p>
             <h1 className="mt-4 text-2xl font-extrabold leading-tight md:text-4xl">{t.home.heroTitle}</h1>
             <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-ink/80 md:mx-0 md:text-lg">{t.home.heroText}</p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center md:justify-start">
-              <Link href="/san-pham" className="btn btn-red text-lg">
+              <Link href="/mua-hang" className="btn btn-red text-lg">
                 {t.common.buyNow} <ArrowRightIcon width={20} height={20} />
               </Link>
               <Link href="/dai-ly" className="btn btn-gold neon-border-gold text-lg">
@@ -97,7 +91,6 @@ export default function HomePage() {
       <section className="mx-auto mt-14 max-w-6xl px-4 md:mt-20">
         <div className="mb-6 flex items-end justify-between gap-4">
           <div>
-            <p className="text-sm font-bold uppercase tracking-wider text-pg-gold-dark">PG Food</p>
             <h2 className="text-2xl font-extrabold md:text-3xl">{t.home.featured}</h2>
           </div>
           <Link href="/san-pham" className="inline-flex min-h-11 items-center gap-1 font-semibold text-pg-blue hover:underline">

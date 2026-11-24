@@ -43,13 +43,18 @@ export function useSubmit(endpoint: string) {
       setSending(false);
     }
   }
-  return { submit, sending, errors, setErrors, message };
+  /** Gắn vào <form onChange>: xóa lỗi của ô khách vừa sửa */
+  const clearError = (e: React.FormEvent<HTMLFormElement>) => {
+    const name = (e.target as HTMLInputElement).name;
+    if (name && errors[name]) setErrors(({ [name]: _removed, ...rest }) => rest);
+  };
+  return { submit, sending, errors, setErrors, message, clearError };
 }
 
 function mapServerErrors(fields: Record<string, string>): Errors {
   const out: Errors = {};
   for (const k of Object.keys(fields)) {
-    out[k] = k === "phone" ? t.form.phoneInvalid : k === "consent" ? t.form.consentRequired : t.form.required;
+    out[k] = k === "phone" ? t.form.phoneInvalid : k === "consent" ? t.form.consentRequired : k === "products" ? t.order.productsRequired : t.form.required;
   }
   return out;
 }
