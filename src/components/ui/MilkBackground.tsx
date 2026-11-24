@@ -2,39 +2,40 @@
 
 import { m, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
 import { useEffect } from "react";
+import { BadGerm, GuardScene, ProbioticBuddy } from "./Mascots";
 
 /**
  * Hình nền minh họa sữa & lợi khuẩn – SVG tự vẽ.
- * - Lợi khuẩn hình viên nang/que bo tròn (xanh lá, vàng nhạt), độ mờ 8–15%, trôi chậm.
+ * - Nhân vật lợi khuẩn hoạt hình cầm khiên chặn vi khuẩn xấu, vẽ mờ, trôi chậm.
  * - Giọt sữa, vệt sữa gợn sóng, bong bóng nhỏ.
  * - Parallax nhẹ khi cuộn và khi di chuột (máy tính). Trên điện thoại giảm số họa tiết.
  */
 
-type Capsule = { x: number; y: number; w: number; h: number; r: number; c: "g" | "y"; o: number; anim: "a" | "b"; delay: number; mobile?: boolean };
+type Mascot = { x: number; y: number; s: number; kind: "guard" | "buddy" | "germ"; tone?: "green" | "gold"; flip?: boolean; rot?: number; anim: "a" | "b"; delay: number; mobile?: boolean };
 
-const capsules: Capsule[] = [
-  { x: 90, y: 120, w: 86, h: 30, r: -25, c: "g", o: 0.14, anim: "a", delay: 0, mobile: true },
-  { x: 260, y: 520, w: 60, h: 22, r: 30, c: "y", o: 0.15, anim: "b", delay: -4 },
-  { x: 1240, y: 140, w: 96, h: 34, r: 20, c: "y", o: 0.15, anim: "b", delay: -2, mobile: true },
-  { x: 1320, y: 520, w: 70, h: 26, r: -35, c: "g", o: 0.12, anim: "a", delay: -6 },
-  { x: 640, y: 80, w: 52, h: 20, r: 12, c: "g", o: 0.1, anim: "b", delay: -8 },
-  { x: 980, y: 640, w: 64, h: 24, r: -15, c: "g", o: 0.12, anim: "a", delay: -3, mobile: true },
-  { x: 470, y: 690, w: 44, h: 18, r: 50, c: "y", o: 0.13, anim: "a", delay: -9 },
-  { x: 1100, y: 330, w: 40, h: 16, r: 70, c: "g", o: 0.09, anim: "b", delay: -5 },
-  { x: 40, y: 400, w: 54, h: 20, r: 80, c: "y", o: 0.12, anim: "b", delay: -7, mobile: true },
+/**
+ * Vị trí nhân vật trong khung 1440 x 800 (khung bị cắt bớt trên/dưới tùy chiều cao vùng chứa).
+ * hero: trang chủ – đặt ở khoảng trống quanh chữ & ảnh. page: đầu trang con – lệch phải, giữa chiều cao.
+ * mobile: true → vẫn hiện trên điện thoại.
+ */
+const heroMascots: Mascot[] = [
+  { x: 990, y: 128, s: 0.6, kind: "guard", tone: "green", rot: -4, anim: "a", delay: 0 },
+  { x: 610, y: 655, s: 0.75, kind: "guard", tone: "gold", rot: 3, anim: "b", delay: -4, mobile: true },
+  { x: 1385, y: 655, s: 0.7, kind: "guard", tone: "green", flip: true, rot: -3, anim: "a", delay: -6 },
+  { x: 40, y: 430, s: 0.55, kind: "buddy", tone: "gold", rot: 8, anim: "b", delay: -2 },
+  { x: 820, y: 330, s: 0.42, kind: "buddy", tone: "green", rot: -8, anim: "a", delay: -8, mobile: true },
+];
+const pageMascots: Mascot[] = [
+  { x: 1060, y: 420, s: 0.8, kind: "guard", tone: "green", rot: -3, anim: "a", delay: 0 },
+  { x: 1370, y: 330, s: 0.55, kind: "buddy", tone: "gold", flip: true, rot: 8, anim: "b", delay: -4 },
 ];
 
-const COLORS = { g: "#3A9A3F", y: "#F2B410" };
-
-function CapsuleShape({ c }: { c: Capsule }) {
-  const fill = COLORS[c.c];
+function MascotShape({ m }: { m: Mascot }) {
+  const hide = m.mobile ? "" : "max-md:hidden";
   return (
-    <g transform={`translate(${c.x} ${c.y}) rotate(${c.r})`} className={c.mobile ? "" : "max-md:hidden"}>
-      <g className={c.anim === "a" ? "float-a" : "float-b"} style={{ animationDelay: `${c.delay}s` }}>
-        <rect x={-c.w / 2} y={-c.h / 2} width={c.w} height={c.h} rx={c.h / 2} fill={fill} opacity={c.o} />
-        <rect x={-c.w / 2 + 5} y={-c.h / 2 + 4} width={c.w * 0.45} height={c.h * 0.28} rx={c.h * 0.14} fill="#fff" opacity={0.35} />
-        {/* lông roi nhỏ */}
-        <path d={`M${c.w / 2} 0 q 10 -6 18 0 t 16 0`} stroke={fill} strokeWidth="2.5" fill="none" opacity={c.o * 0.9} strokeLinecap="round" />
+    <g transform={`translate(${m.x} ${m.y}) rotate(${m.rot ?? 0}) scale(${m.s})`} className={hide}>
+      <g className={m.anim === "a" ? "float-a" : "float-b"} style={{ animationDelay: `${m.delay}s` }}>
+        {m.kind === "guard" ? <GuardScene tone={m.tone} flip={m.flip} /> : m.kind === "buddy" ? <ProbioticBuddy tone={m.tone} flip={m.flip} /> : <BadGerm />}
       </g>
     </g>
   );
@@ -85,13 +86,10 @@ export function MilkBackground({ variant = "hero" }: { variant?: "hero" | "page"
       {/* lớp xa: lợi khuẩn */}
       <m.div className="absolute inset-0" style={{ x: farMX, y: farMY }}>
         <svg className="h-full w-full" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice">
-          {capsules.slice(0, short ? 5 : capsules.length).map((c, i) => (
-            <CapsuleShape key={i} c={c} />
-          ))}
-          {/* cụm cầu khuẩn nhỏ */}
-          <g opacity={0.12} fill="#3A9A3F" className="max-md:hidden">
-            <circle cx="820" cy="210" r="7" /><circle cx="836" cy="214" r="6" /><circle cx="828" cy="226" r="6.5" />
-            <circle cx="180" cy="300" r="6" /><circle cx="193" cy="306" r="5" />
+          <g opacity={0.32}>
+            {(short ? pageMascots : heroMascots).map((m, i) => (
+              <MascotShape key={i} m={m} />
+            ))}
           </g>
         </svg>
       </m.div>
