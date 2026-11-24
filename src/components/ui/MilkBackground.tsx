@@ -39,11 +39,11 @@ function MobileMascots({ variant }: { variant: "hero" | "page" }) {
     // Trang chủ: 2 hiệp sĩ hai bên nhãn "Sữa chua uống lợi khuẩn"
     return (
       <div className="md:hidden">
-        <svg viewBox={VB_KNIGHT} className="absolute left-1 top-1 w-[62px] opacity-45" aria-hidden>
-          <g className="float-b"><ProbioticBuddy tone="gold" /></g>
+        <svg viewBox={VB_KNIGHT} className="absolute left-1 top-1 w-[62px]" overflow="visible" aria-hidden>
+          <g opacity={0.5}><g className="float-b"><ProbioticBuddy tone="gold" /></g></g>
         </svg>
-        <svg viewBox={VB_KNIGHT} className="absolute right-1 top-1 w-[62px] opacity-45" aria-hidden>
-          <g className="float-a"><ProbioticBuddy tone="green" flip /></g>
+        <svg viewBox={VB_KNIGHT} className="absolute right-1 top-1 w-[62px]" overflow="visible" aria-hidden>
+          <g opacity={0.5}><g className="float-a"><ProbioticBuddy tone="green" flip /></g></g>
         </svg>
       </div>
     );
@@ -51,8 +51,8 @@ function MobileMascots({ variant }: { variant: "hero" | "page" }) {
   // Trang con: hiệp sĩ chặn vi khuẩn ở góc trên bên phải
   return (
     <div className="md:hidden">
-      <svg viewBox={VB_GUARD} className="absolute right-2 top-1 w-[124px] opacity-45" aria-hidden>
-        <g className="float-a"><GuardScene tone="green" /></g>
+      <svg viewBox={VB_GUARD} className="absolute right-2 top-1 w-[124px]" overflow="visible" aria-hidden>
+        <g opacity={0.5}><g className="float-a"><GuardScene tone="green" /></g></g>
       </svg>
     </div>
   );
