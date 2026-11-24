@@ -100,7 +100,7 @@ export function MilkBackground({ variant = "hero" }: { variant?: "hero" | "page"
           {/* vệt sữa gợn sóng (giống đường lượn xanh lá dưới logo) */}
           <path d="M-20 260 C 220 200 420 320 660 250 S 1100 180 1460 240" stroke="#3A9A3F" strokeOpacity="0.1" strokeWidth="6" fill="none" strokeLinecap="round" />
           <path d="M-20 600 C 260 540 520 660 820 590 S 1240 520 1460 580" stroke="#F2B410" strokeOpacity="0.14" strokeWidth="4" fill="none" strokeLinecap="round" className="max-md:hidden" />
-          <Drop x={1180} y={420} s={1.1} o={0.95} cls="float-a" />
+          <Drop x={1250} y={540} s={0.9} o={0.95} cls="float-a" />
           <Drop x={170} y={640} s={0.8} o={0.9} cls="float-b max-md:hidden" />
           {!short && <Drop x={760} y={120} s={0.6} o={0.85} cls="float-b max-md:hidden" />}
           {/* bong bóng */}
