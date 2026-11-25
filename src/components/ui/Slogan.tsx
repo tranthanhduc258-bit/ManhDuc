@@ -20,13 +20,13 @@ export function Slogan({ neon = false, className = "" }: { neon?: boolean; class
       </span>
     );
   return (
-    <span
+    <button
+      type="button"
       className={`sun-slogan font-extrabold ${jump ? "is-jumping" : ""} ${className}`}
-      onClick={() => setJump((j) => j + 1)}
+      onPointerDown={() => setJump((j) => j + 1)}
       key={jump}
-      role="text"
+      aria-label="Plan Growth"
     >
-      <span className="sr-only">Plan Growth</span>
       {letters.map((l, i) => (
         <span key={i} aria-hidden className={`chw ${l.gap ? "ml-[0.22em]" : ""}`} style={{ ["--i" as string]: i }}>
           <span className={`ch ch-${l.t}`}>{l.ch}</span>
@@ -37,6 +37,6 @@ export function Slogan({ neon = false, className = "" }: { neon?: boolean; class
       <span aria-hidden className="spark spark-sm" style={{ left: "37%", top: "62%", animationDelay: "1.7s" }} />
       <span aria-hidden className="spark" style={{ left: "58%", top: "2%", animationDelay: "2.9s" }} />
       <span aria-hidden className="spark spark-sm" style={{ left: "93%", top: "30%", animationDelay: "3.8s" }} />
-    </span>
+    </button>
   );
 }

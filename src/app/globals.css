@@ -57,7 +57,8 @@ h1, h2, h3, h4 { color: var(--color-pg-blue); letter-spacing: -0.01em; }
 .neon-border-gold:hover { box-shadow: 0 0 8px rgba(242, 180, 16, 0.75), 0 0 22px rgba(242, 180, 16, 0.45), inset 0 0 10px rgba(242, 180, 16, 0.3); }
 /* Slogan Plan Growth: chữ sáng – nét (màu sáng trên, đậm dưới), viền sáng mảnh,
    vệt nắng quét qua từng chữ mỗi 5s, sao lấp lánh; bấm vào → từng chữ nảy lên */
-.sun-slogan { position: relative; display: inline-block; white-space: nowrap; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.sun-slogan { position: relative; display: inline-block; white-space: nowrap; cursor: pointer; -webkit-tap-highlight-color: transparent; background: none; border: 0; padding: 0; font: inherit; line-height: inherit; letter-spacing: inherit; touch-action: manipulation; }
+.sun-slogan:focus-visible { outline: 3px solid var(--color-pg-gold); outline-offset: 6px; border-radius: 12px; }
 .sun-slogan .chw { display: inline-block; }
 .sun-slogan .ch { --c1: #5cc261; --c2: #2f8a34; color: var(--c2); display: inline-block; filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.95)) drop-shadow(0 0 10px rgba(255, 232, 150, 0.55)); }
 .sun-slogan .ch-p { --c1: #ff4d53; --c2: #d71920; }
@@ -78,7 +79,7 @@ h1, h2, h3, h4 { color: var(--color-pg-blue); letter-spacing: -0.01em; }
 }
 @keyframes sun-sweep { 0% { background-position: 150% 0, 0 0; } 14% { background-position: -50% 0, 0 0; } 100% { background-position: -50% 0, 0 0; } }
 .sun-slogan.is-jumping .chw { animation: ch-jump 0.6s cubic-bezier(0.3, 1.6, 0.5, 1) both; animation-delay: calc(var(--i) * 0.06s); }
-@keyframes ch-jump { 0% { transform: translateY(0) scale(1); } 35% { transform: translateY(-0.28em) scale(1.08, 0.94); } 65% { transform: translateY(0.04em) scale(0.97, 1.03); } 100% { transform: translateY(0) scale(1); } }
+@keyframes ch-jump { 0% { transform: translateY(0) scale(1); } 35% { transform: translateY(-0.38em) scale(1.1, 0.92); } 65% { transform: translateY(0.04em) scale(0.97, 1.03); } 100% { transform: translateY(0) scale(1); } }
 .sun-slogan .spark { position: absolute; width: 0.34em; height: 0.34em; pointer-events: none; opacity: 0;
   background: radial-gradient(circle, #fff 0 18%, transparent 20%), conic-gradient(from 45deg, transparent 0 20deg, #fff6c8 20deg 25deg, transparent 25deg 110deg, #fff6c8 110deg 115deg, transparent 115deg 200deg, #fff6c8 200deg 205deg, transparent 205deg 290deg, #fff6c8 290deg 295deg, transparent 295deg);
   filter: drop-shadow(0 0 4px rgba(255, 220, 120, 0.9)); animation: twinkle 4.6s ease-in-out infinite; }
