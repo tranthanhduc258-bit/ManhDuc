@@ -1,6 +1,6 @@
 "use client";
 
-import { animate, m, useInView } from "framer-motion";
+import { animate, m } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { BacteriaIcon, ClockIcon, TruckIcon } from "@/components/Icons";
 import { strengths } from "@/data/home";
@@ -13,27 +13,32 @@ const tone = {
   delivery: { card: "bg-[#E8EEF8] ring-pg-blue/10", icon: "bg-white text-pg-blue shadow-[0_8px_20px_-10px_rgba(30,58,120,.55)]" },
 } as const;
 
-/** Số đếm chạy từ 0 lên `to` khi cuộn tới (giữ nguyên số nếu tắt chuyển động) */
+/** Số đếm chạy từ 0 lên `to` mỗi lần ô hiện vào màn hình, hoặc khi rê chuột / chạm (replay) */
 function CountUp({ to, replay = 0 }: { to: number; replay?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-30px" });
   const [val, setVal] = useState(to);
-  const [armed, setArmed] = useState(false);
+  const run = useRef<() => void>(() => {});
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (!inView) {
+    let ctl: ReturnType<typeof animate> | null = null;
+    run.current = () => {
+      ctl?.stop();
       setVal(0);
-      setArmed(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      ctl = animate(0, to, { duration: 2, delay: 0.3, ease: "easeOut", onUpdate: (v) => setVal(Math.round(v)) });
+    };
+    const el = ref.current;
+    if (!el || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && run.current()), { threshold: 0.9 });
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      ctl?.stop();
+    };
+  }, [to]);
   useEffect(() => {
-    if (!inView || !armed) return;
-    // chờ ô hiện rõ rồi mới đếm; rê chuột / chạm vào ô thì đếm lại
-    const c = animate(0, to, { duration: 2, delay: replay ? 0 : 0.5, ease: "easeOut", onUpdate: (v) => setVal(Math.round(v)) });
-    return () => c.stop();
-  }, [inView, armed, to, replay]);
+    if (replay) run.current();
+  }, [replay]);
 
   return (
     <span ref={ref} className="tabular-nums">
