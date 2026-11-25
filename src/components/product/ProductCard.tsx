@@ -17,7 +17,7 @@ export function ProductCard({ product, priority = false }: { product: Product; p
           className="product-img object-contain p-3"
           priority={priority}
         />
-        <span className="absolute left-3 top-3 rounded-full bg-pg-green/90 px-3 py-1 text-xs font-bold text-white">{product.highlights[0]}</span>
+        <span className="badge-glow absolute left-3 top-3 rounded-full bg-pg-green px-3 py-1 text-xs font-bold text-white">{product.highlights[0]}</span>
       </Link>
       <div className="flex flex-1 flex-col p-5">
         <h3 className="text-[17px] font-bold leading-snug">
@@ -29,7 +29,7 @@ export function ProductCard({ product, priority = false }: { product: Product; p
           <Link href={href} className="text-sm font-semibold text-pg-blue underline-offset-4 hover:underline">{t.common.viewDetail}</Link>
         </div>
         <div className="card-action mt-4">
-          <Link href={`/mua-hang?sp=${product.slug}`} className="btn btn-red w-full">{t.common.orderNow}</Link>
+          <Link href={`/mua-hang?sp=${product.slug}`} className="btn btn-red btn-shine w-full">{t.common.orderNow}</Link>
         </div>
       </div>
     </article>

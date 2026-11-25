@@ -96,43 +96,64 @@ export function ProbioticBuddy({ tone = "green", flip = false, outerFlip = false
   );
 }
 
-/** Vi khuẩn xấu: gai góc, lông mày cau có (bị khiên chặn) */
-export function BadGerm() {
-  const spikes = Array.from({ length: 10 }, (_, i) => (i * 360) / 10);
+type RoundTone = "green" | "gold" | "mint";
+const ROUND: Record<RoundTone, { body: string; dark: string; light: string }> = {
+  green: { body: "#8FD592", dark: "#3A9A3F", light: "#C9EEC9" },
+  gold: { body: "#F8D768", dark: "#D89A00", light: "#FDEDB4" },
+  mint: { body: "#BDE9C0", dark: "#5DB060", light: "#E3F7E4" },
+};
+
+/**
+ * Lợi khuẩn tròn trịa, mặt cười (thay cho hình vi khuẩn gai cũ).
+ * Toạ độ gốc ở tâm, khung khoảng 80 x 80 (viewBox "-40 -44 80 84").
+ * face: "happy" = mắt cười híp, "open" = mắt tròn long lanh.
+ */
+export function RoundBuddy({ tone = "green", face = "open", wave = "left" }: { tone?: RoundTone; face?: "happy" | "open"; wave?: "left" | "right" | "both" }) {
+  const c = ROUND[tone];
   return (
     <g>
-      {spikes.map((a) => (
-        <g key={a} transform={`rotate(${a})`}>
-          <line x1="0" y1="-22" x2="0" y2="-31" stroke="#6E5A9E" strokeWidth="3" strokeLinecap="round" />
-          <circle cx="0" cy="-32" r="3.2" fill="#8E77C4" />
-        </g>
-      ))}
-      <circle r="23" fill="#9C86CF" stroke="#6E5A9E" strokeWidth="3" />
-      <circle cx="-9" cy="11" r="3" fill="#7E68B5" />
-      <circle cx="10" cy="-12" r="2.4" fill="#7E68B5" />
-      {/* lông mày cau + mắt */}
-      <path d="M-13 -9 l9 4" stroke="#3B2E63" strokeWidth="3" strokeLinecap="round" />
-      <path d="M13 -9 l-9 4" stroke="#3B2E63" strokeWidth="3" strokeLinecap="round" />
-      <circle cx="-7" cy="0" r="3" fill="#3B2E63" />
-      <circle cx="7" cy="0" r="3" fill="#3B2E63" />
-      {/* miệng mếu */}
-      <path d="M-7 12 q 7 -6 14 0" stroke="#3B2E63" strokeWidth="2.6" fill="none" strokeLinecap="round" />
-      {/* vạch "bật lại" */}
-      <path d="M-36 -6 h-10 M-34 6 h-8" stroke="#6E5A9E" strokeWidth="2.5" strokeLinecap="round" opacity="0.7" />
+      {/* mầm lá trên đầu */}
+      <path d="M0 -27 C 0 -33 1 -36 2 -38" stroke="#3A9A3F" strokeWidth="2.4" fill="none" strokeLinecap="round" />
+      <path d="M2 -37 C 8 -43 15 -40 15 -35 C 9 -32 5 -33 2 -37 Z" fill="#5DB060" />
+      <path d="M1 -36 C -5 -42 -12 -40 -12 -35 C -7 -32 -3 -33 1 -36 Z" fill="#7CCB7F" />
+      {/* chân */}
+      <ellipse cx="-9" cy="27" rx="7" ry="4.5" fill={c.dark} />
+      <ellipse cx="9" cy="27" rx="7" ry="4.5" fill={c.dark} />
+      {/* tay vẫy */}
+      {(wave === "left" || wave === "both") && <path d="M-26 4 q -9 -6 -9 -16" stroke={c.dark} strokeWidth="3.5" fill="none" strokeLinecap="round" />}
+      {(wave === "right" || wave === "both") && <path d="M26 4 q 9 -6 9 -16" stroke={c.dark} strokeWidth="3.5" fill="none" strokeLinecap="round" />}
+      {wave === "left" && <path d="M26 6 q 7 4 6 11" stroke={c.dark} strokeWidth="3.5" fill="none" strokeLinecap="round" />}
+      {wave === "right" && <path d="M-26 6 q -7 4 -6 11" stroke={c.dark} strokeWidth="3.5" fill="none" strokeLinecap="round" />}
+      {/* thân tròn */}
+      <ellipse cx="0" cy="0" rx="28" ry="27" fill={c.body} stroke={c.dark} strokeWidth="2.6" />
+      <ellipse cx="-11" cy="-13" rx="7" ry="5" fill="#fff" opacity="0.55" transform="rotate(-25 -11 -13)" />
+      <circle cx="14" cy="14" r="2.4" fill={c.light} />
+      <circle cx="-15" cy="12" r="1.8" fill={c.light} />
+      {/* mắt */}
+      {face === "happy" ? (
+        <>
+          <path d="M-14 -3 q 5 -6 10 0" stroke="#1E3A78" strokeWidth="2.6" fill="none" strokeLinecap="round" />
+          <path d="M4 -3 q 5 -6 10 0" stroke="#1E3A78" strokeWidth="2.6" fill="none" strokeLinecap="round" />
+        </>
+      ) : (
+        <>
+          <ellipse cx="-9" cy="-3" rx="4.6" ry="5.4" fill="#1E3A78" />
+          <ellipse cx="9" cy="-3" rx="4.6" ry="5.4" fill="#1E3A78" />
+          <circle cx="-7.6" cy="-5" r="1.7" fill="#fff" />
+          <circle cx="10.4" cy="-5" r="1.7" fill="#fff" />
+        </>
+      )}
+      {/* má hồng + miệng cười tươi */}
+      <ellipse cx="-17" cy="6" rx="4.4" ry="2.8" fill="#F49A9A" opacity="0.85" />
+      <ellipse cx="17" cy="6" rx="4.4" ry="2.8" fill="#F49A9A" opacity="0.85" />
+      <path d="M-7 6 Q 0 15 7 6 Z" fill="#1E3A78" />
+      <path d="M-3.6 10.4 Q 0 13 3.6 10.4 Q 0 8.8 -3.6 10.4 Z" fill="#F49A9A" />
     </g>
   );
 }
 
-/** Cảnh nhỏ: lợi khuẩn cầm khiên chặn vi khuẩn xấu */
-export function GuardScene({ tone = "green", flip = false }: { tone?: Tone; flip?: boolean }) {
-  return (
-    <g transform={flip ? "scale(-1 1)" : undefined}>
-      <ProbioticBuddy tone={tone} outerFlip={flip} />
-      <g transform="translate(140 -2)">
-        <g className="germ-bounce">
-          <BadGerm />
-        </g>
-      </g>
-    </g>
-  );
-}
+/** Khung viewBox dùng khi vẽ từng nhân vật thành 1 SVG riêng */
+export const VIEWBOX = {
+  knight: "-75 -102 162 158",
+  round: "-40 -44 80 84",
+} as const;

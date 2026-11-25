@@ -9,6 +9,7 @@ import { CartIcon, CloseIcon, MenuIcon, PhoneIcon } from "@/components/Icons";
 import { site } from "@/data/site";
 import { t } from "@/i18n";
 import { navItems } from "./nav";
+import { HeaderLogo } from "./HeaderLogo";
 
 
 
@@ -16,7 +17,7 @@ const isActive = (path: string, href: string) => (href === "/" ? path === "/" : 
 
 function OrderButton() {
   return (
-    <Link href="/mua-hang" className="btn btn-red min-h-11 px-4 py-2 text-[15px] md:px-5">
+    <Link href="/mua-hang" className="btn btn-red btn-shine neon-btn-red min-h-11 px-4 py-2 text-[15px] md:px-5">
       <CartIcon width={20} height={20} />
       <span>{t.nav.order}</span>
     </Link>
@@ -49,10 +50,8 @@ export function Header() {
         scrolled ? "bg-milk/90 shadow-[0_6px_24px_-12px_rgba(30,58,120,.3)] backdrop-blur-md" : "bg-milk/70 backdrop-blur-sm"
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 md:h-[72px]">
-        <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="PG Food – Trang chủ">
-          <Image src={site.logo} alt="PG Food" width={462} height={394} priority className="h-12 w-auto md:h-14" sizes="70px" />
-        </Link>
+      <div className="mx-auto flex h-[76px] max-w-6xl items-center justify-between gap-3 px-4 md:h-[96px]">
+        <HeaderLogo />
 
         <nav aria-label="Menu chính" className="hidden lg:block">
           <ul className="flex items-center gap-6">

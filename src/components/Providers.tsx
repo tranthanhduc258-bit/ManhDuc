@@ -3,6 +3,7 @@
 import { LazyMotion, domAnimation, MotionConfig } from "framer-motion";
 import { RippleEffect } from "./ui/RippleEffect";
 import { CursorGlow } from "./ui/CursorGlow";
+import { TitleSweep } from "./ui/TitleSweep";
 import { site } from "@/data/site";
 
 export function Providers({ children }: { children: React.ReactNode }) {
@@ -11,6 +12,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <MotionConfig reducedMotion="user">
         {children}
         <RippleEffect />
+        <TitleSweep />
         {site.features.cursorGlow && <CursorGlow />}
       </MotionConfig>
     </LazyMotion>
