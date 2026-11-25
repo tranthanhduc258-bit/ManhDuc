@@ -29,7 +29,7 @@ export function FloatingContact() {
       </div>
 
       {/* điện thoại: thanh cố định ở đáy */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-pg-blue/10 bg-milk/95 px-3 pt-2 shadow-[0_-8px_24px_-16px_rgba(30,58,120,.45)] backdrop-blur-md md:hidden" style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}>
+      <div className="mobile-contact-bar fixed inset-x-0 bottom-0 z-40 border-t border-pg-blue/10 bg-milk/95 px-3 pt-2 shadow-[0_-8px_24px_-16px_rgba(30,58,120,.45)] backdrop-blur-md md:hidden" style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}>
         <div className="mx-auto grid max-w-md grid-cols-[auto_1fr] gap-2">
           <a href={site.zaloUrl} target="_blank" rel="noopener noreferrer" aria-label={`${t.common.chatZalo} ${site.hotline}`} className="grid h-11 place-items-center rounded-full bg-[#0068ff] px-5 text-white">
             <ZaloIcon width={34} height={34} />

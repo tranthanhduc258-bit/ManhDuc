@@ -5,9 +5,10 @@ import { CheckIcon } from "@/components/Icons";
 import { dealerTypes } from "@/data/dealer";
 import { provinces } from "@/data/provinces";
 import { t } from "@/i18n";
-import { Consent, Field, FormMessage, Honeypot, formToObject, useSubmit, validate } from "./FormKit";
+import { Consent, Field, FormMessage, FormToast, Honeypot, formToObject, reportMissing, useSubmit, validate } from "./FormKit";
 
 export function DealerForm() {
+  const [toast, setToast] = useState("");
   const { submit, sending, errors, setErrors, message, clearError } = useSubmit("/api/dealer");
   const [done, setDone] = useState<string | null>(null);
 
@@ -16,7 +17,7 @@ export function DealerForm() {
     const data = formToObject(e.currentTarget);
     const errs = validate(data, ["name", "phone", "province", "dealerType"]);
     setErrors(errs);
-    if (Object.keys(errs).length) return document.getElementById(`f-${Object.keys(errs)[0]}`)?.focus();
+    if (Object.keys(errs).length) return setToast(reportMissing(errs, ["name", "phone", "province", "dealerType", "consent"], "Chưa gửi đăng ký thành công."));
     const code = await submit(data);
     if (code) setDone(code);
   }
@@ -32,6 +33,7 @@ export function DealerForm() {
 
   return (
     <form onSubmit={onSubmit} onChange={clearError} noValidate className="space-y-4 rounded-3xl bg-white p-5 ring-1 ring-pg-blue/5 md:p-7">
+      <FormToast text={toast} onClose={() => setToast("")} />
       <Honeypot />
       <div className="grid gap-4 sm:grid-cols-2">
         <Field name="name" label="Họ và tên" required autoComplete="name" error={errors.name} />

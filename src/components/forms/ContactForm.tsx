@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { CheckIcon } from "@/components/Icons";
 import { t } from "@/i18n";
-import { Consent, Field, FormMessage, Honeypot, formToObject, useSubmit, validate } from "./FormKit";
+import { Consent, Field, FormMessage, FormToast, Honeypot, formToObject, reportMissing, useSubmit, validate } from "./FormKit";
 
 export function ContactForm() {
+  const [toast, setToast] = useState("");
   const { submit, sending, errors, setErrors, message, clearError } = useSubmit("/api/contact");
   const [done, setDone] = useState(false);
 
@@ -16,7 +17,7 @@ export function ContactForm() {
     const email = String(data.email || "").trim();
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errs.email = "Email chưa đúng định dạng";
     setErrors(errs);
-    if (Object.keys(errs).length) return document.getElementById(`f-${Object.keys(errs)[0]}`)?.focus();
+    if (Object.keys(errs).length) return setToast(reportMissing(errs, ["name", "phone", "email", "message", "consent"], "Chưa gửi liên hệ thành công."));
     if (await submit(data)) setDone(true);
   }
 
@@ -31,6 +32,7 @@ export function ContactForm() {
 
   return (
     <form onSubmit={onSubmit} onChange={clearError} noValidate className="space-y-4 rounded-3xl bg-white p-5 ring-1 ring-pg-blue/5 md:p-7">
+      <FormToast text={toast} onClose={() => setToast("")} />
       <Honeypot />
       <div className="grid gap-4 sm:grid-cols-2">
         <Field name="name" label="Họ và tên" required autoComplete="name" error={errors.name} />

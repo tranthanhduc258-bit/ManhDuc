@@ -11,7 +11,7 @@ import { products } from "@/data/products";
 import { provinces } from "@/data/provinces";
 import { formatVnd } from "@/lib/format";
 import { t } from "@/i18n";
-import { Consent, Field, FormMessage, Honeypot, formToObject, useSubmit, validate } from "./FormKit";
+import { Consent, Field, FormMessage, FormToast, Honeypot, formToObject, reportMissing, useSubmit, validate } from "./FormKit";
 
 const available = products.filter((p) => p.status === "available");
 
@@ -20,6 +20,8 @@ export function OrderForm() {
   const params = useSearchParams();
   const router = useRouter();
   const { submit, sending, errors, setErrors, message, clearError } = useSubmit("/api/order");
+  const [hint, setHint] = useState("");
+  const [toast, setToast] = useState("");
 
   // ?sp=slug&sl=2 → chọn sẵn sản phẩm từ trang sản phẩm
   const [picked, setPicked] = useState<Record<string, number>>(() => {
@@ -50,9 +52,13 @@ export function OrderForm() {
     const errs = validate(data, ["name", "phone", "province", "address"]);
     if (!items.length) errs.products = t.order.productsRequired;
     setErrors(errs);
+    setHint("");
     if (Object.keys(errs).length) {
       const first = Object.keys(errs)[0];
-      document.getElementById(first === "products" ? "chon-san-pham" : `f-${first}`)?.focus();
+      // Báo "chưa đặt hàng thành công" + cuộn, đặt con trỏ vào ô thiếu đầu tiên
+      const msg = reportMissing(errs, ["products", "name", "phone", "province", "address", "consent"], "Chưa đặt hàng thành công.", { products: "chon-san-pham" });
+      setHint(msg);
+      setToast(msg);
       return;
     }
     const code = await submit({ ...data, items: items.map((i) => ({ slug: i.product.slug, qty: i.qty })) });
@@ -61,6 +67,7 @@ export function OrderForm() {
 
   return (
     <form onSubmit={onSubmit} onChange={clearError} noValidate className="grid gap-6 lg:grid-cols-[1.15fr_1fr]">
+      <FormToast text={toast} onClose={() => setToast("")} />
       <Honeypot />
       <fieldset id="chon-san-pham" tabIndex={-1} className="h-fit rounded-3xl bg-white p-5 ring-1 ring-pg-blue/5 focus:outline-none md:p-7">
         <legend className="sr-only">{t.order.chooseProducts}</legend>
@@ -163,7 +170,7 @@ export function OrderForm() {
           <CheckIcon width={18} height={18} className="mt-0.5 shrink-0" /> {t.order.noPrepay}
         </p>
         <Consent error={errors.consent} />
-        <FormMessage text={message} />
+        <FormMessage text={hint || message} />
         <button type="submit" disabled={sending} className="btn btn-red w-full text-lg">
           {sending ? t.order.sending : t.order.submit}
         </button>

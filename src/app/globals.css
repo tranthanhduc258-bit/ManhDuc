@@ -318,3 +318,6 @@ textarea.field[data-filled="true"]:not(:focus) { background-position: right 0.9r
 }
 .fab:hover .fab-tip, .fab:focus-visible .fab-tip { opacity: 1; transform: translate(0, -50%); }
 .neon-blue-tip { text-shadow: 0 0 8px rgba(44, 99, 214, 0.45); }
+
+/* Ẩn thanh Zalo/Gọi ở đáy khi đang nhập liệu (bàn phím mở) để không che nút Gửi */
+body:has(input:focus, textarea:focus, select:focus) .mobile-contact-bar { display: none; }
