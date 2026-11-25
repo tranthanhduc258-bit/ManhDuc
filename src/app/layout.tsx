@@ -11,7 +11,7 @@ import { organizationLd, localBusinessLd } from "@/lib/seo";
 
 const font = Be_Vietnam_Pro({
   subsets: ["latin", "vietnamese"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   variable: "--font-be-vietnam",
   display: "swap",
 });
