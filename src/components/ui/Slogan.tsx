@@ -1,21 +1,42 @@
+"use client";
+
+import { useState } from "react";
+
 /**
- * Slogan "Plan Growth" theo màu logo "PG FOOD": P đỏ, G xanh dương, các chữ còn lại xanh lá.
- * Bản neon: quầng sáng theo màu từng chữ + vệt sáng trắng chạy ngang mỗi 5 giây.
+ * Slogan "Plan Growth" theo màu logo: P đỏ, G xanh dương, còn lại xanh lá.
+ * Bản neon: chữ sáng – nét, vệt nắng quét qua từng chữ, sao lấp lánh; bấm vào thì từng chữ nảy lên.
  */
+const letters: { ch: string; t: "p" | "g" | "r"; gap?: boolean }[] = [
+  { ch: "P", t: "p" }, { ch: "l", t: "r" }, { ch: "a", t: "r" }, { ch: "n", t: "r" },
+  { ch: "G", t: "g", gap: true }, { ch: "r", t: "r" }, { ch: "o", t: "r" }, { ch: "w", t: "r" }, { ch: "t", t: "r" }, { ch: "h", t: "r" },
+];
+
 export function Slogan({ neon = false, className = "" }: { neon?: boolean; className?: string }) {
-  if (neon)
+  const [jump, setJump] = useState(0);
+  if (!neon)
     return (
-      <span className={`neon-slogan font-extrabold ${className}`}>
-        <span className="sr-only">Plan Growth</span>
-        <span aria-hidden className="sl sl-p" style={{ ["--d" as string]: "0s" }}>P</span>
-        <span aria-hidden className="sl sl-rest" style={{ ["--d" as string]: "0.12s" }}>lan</span>{" "}
-        <span aria-hidden className="sl sl-g" style={{ ["--d" as string]: "0.34s" }}>G</span>
-        <span aria-hidden className="sl sl-rest" style={{ ["--d" as string]: "0.46s" }}>rowth</span>
+      <span className={`font-bold text-pg-green ${className}`}>
+        <span className="text-pg-red">P</span>lan <span className="text-pg-logo-blue">G</span>rowth
       </span>
     );
   return (
-    <span className={`font-bold text-pg-green ${className}`}>
-      <span className="text-pg-red">P</span>lan <span className="text-pg-logo-blue">G</span>rowth
+    <span
+      className={`sun-slogan font-extrabold ${jump ? "is-jumping" : ""} ${className}`}
+      onClick={() => setJump((j) => j + 1)}
+      key={jump}
+      role="text"
+    >
+      <span className="sr-only">Plan Growth</span>
+      {letters.map((l, i) => (
+        <span key={i} aria-hidden className={`chw ${l.gap ? "ml-[0.22em]" : ""}`} style={{ ["--i" as string]: i }}>
+          <span className={`ch ch-${l.t}`}>{l.ch}</span>
+        </span>
+      ))}
+      {/* sao lấp lánh như nắng chiếu */}
+      <span aria-hidden className="spark" style={{ left: "4%", top: "8%", animationDelay: "0.4s" }} />
+      <span aria-hidden className="spark spark-sm" style={{ left: "37%", top: "62%", animationDelay: "1.7s" }} />
+      <span aria-hidden className="spark" style={{ left: "58%", top: "2%", animationDelay: "2.9s" }} />
+      <span aria-hidden className="spark spark-sm" style={{ left: "93%", top: "30%", animationDelay: "3.8s" }} />
     </span>
   );
 }
