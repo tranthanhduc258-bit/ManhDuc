@@ -14,7 +14,7 @@ const tone = {
 } as const;
 
 /** Số đếm chạy từ 0 lên `to` khi cuộn tới (giữ nguyên số nếu tắt chuyển động) */
-function CountUp({ to }: { to: number }) {
+function CountUp({ to, replay = 0 }: { to: number; replay?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-30px" });
   const [val, setVal] = useState(to);
@@ -30,9 +30,10 @@ function CountUp({ to }: { to: number }) {
   }, []);
   useEffect(() => {
     if (!inView || !armed) return;
-    const c = animate(0, to, { duration: 1.4, ease: "easeOut", onUpdate: (v) => setVal(Math.round(v)) });
+    // chờ ô hiện rõ rồi mới đếm; rê chuột / chạm vào ô thì đếm lại
+    const c = animate(0, to, { duration: 2, delay: replay ? 0 : 0.5, ease: "easeOut", onUpdate: (v) => setVal(Math.round(v)) });
     return () => c.stop();
-  }, [inView, armed, to]);
+  }, [inView, armed, to, replay]);
 
   return (
     <span ref={ref} className="tabular-nums">
@@ -42,6 +43,7 @@ function CountUp({ to }: { to: number }) {
 }
 
 export function StrengthCards() {
+  const [replay, setReplay] = useState(0);
   return (
     <ul className="grid gap-4 sm:grid-cols-3">
       {strengths.map((s, i) => {
@@ -57,6 +59,8 @@ export function StrengthCards() {
           >
             <m.div
               whileHover="hover"
+              onHoverStart={() => num && setReplay((n) => n + 1)}
+              onTap={() => num && setReplay((n) => n + 1)}
               className={`group flex h-full gap-4 rounded-3xl p-5 ring-1 transition-shadow duration-300 hover:shadow-[0_18px_36px_-22px_rgba(30,58,120,.45)] md:flex-col md:p-6 ${tone[s.key].card}`}
             >
               <m.span
@@ -70,7 +74,7 @@ export function StrengthCards() {
                 <h2 className={`text-lg font-extrabold md:text-xl ${s.neon === "green" ? "neon-green-strong" : ""}`}>
                   {num ? (
                     <>
-                      <CountUp to={Number(num[1])} />
+                      <CountUp to={Number(num[1])} replay={replay} />
                       {num[2]}
                     </>
                   ) : (

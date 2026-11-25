@@ -24,6 +24,7 @@ export function Slogan({ neon = false, className = "" }: { neon?: boolean; class
       type="button"
       className={`sun-slogan font-extrabold ${jump ? "is-jumping" : ""} ${className}`}
       onPointerDown={() => setJump((j) => j + 1)}
+      onPointerEnter={(e) => e.pointerType === "mouse" && setJump((j) => j + 1)}
       key={jump}
       aria-label="Plan Growth"
     >
