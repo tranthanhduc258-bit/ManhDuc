@@ -14,7 +14,7 @@ export function OrderButton({ slug }: { slug: string }) {
         <span className="font-semibold text-pg-blue">{t.common.quantity}</span>
         <QtyInput value={qty} onChange={setQty} />
       </div>
-      <Link href={`/mua-hang?sp=${slug}&sl=${qty}`} className="btn btn-red w-full text-lg sm:w-auto sm:px-10">
+      <Link href={`/mua-hang?sp=${slug}&sl=${qty}`} className="btn btn-red btn-shine w-full text-lg sm:w-auto sm:px-10">
         {t.common.orderNow}
       </Link>
     </div>

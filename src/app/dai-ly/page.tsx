@@ -25,13 +25,13 @@ export default function DealerPage() {
       />
 
       <section className="mx-auto max-w-6xl px-4 pt-4">
-        <h2 className="text-2xl font-extrabold md:text-3xl">Quyền lợi đại lý</h2>
+        <h2 className="title-grad text-2xl font-extrabold md:text-3xl">Quyền lợi đại lý</h2>
         <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {dealerBenefits.map((b, i) => {
             const Icon = iconByName[b.icon as keyof typeof iconByName];
             return (
               <li key={b.title}>
-                <Reveal delay={i * 0.05} className="h-full">
+                <Reveal delay={i * 0.1} className="h-full">
                   <div className="flex h-full gap-4 rounded-3xl bg-cream p-5">
                     <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-pg-blue text-pg-gold"><Icon width={24} height={24} /></span>
                     <div><h3 className="font-extrabold">{b.title}</h3><p className="mt-1 text-[15px] text-ink/75">{b.text}</p></div>
@@ -47,10 +47,10 @@ export default function DealerPage() {
       </section>
 
       <section className="mx-auto mt-14 max-w-6xl px-4">
-        <h2 className="text-2xl font-extrabold md:text-3xl">Các cấp đại lý</h2>
+        <h2 className="title-grad text-2xl font-extrabold md:text-3xl">Các cấp đại lý</h2>
         <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {dealerTiers.map((tier, i) => (
-            <Reveal key={tier.name} delay={i * 0.06} className="h-full">
+            <Reveal key={tier.name} delay={i * 0.1} className="h-full">
               <div className={`h-full rounded-3xl p-5 ${i === 3 ? "bg-pg-blue text-white" : "bg-white ring-1 ring-pg-blue/10"}`}>
                 <span className={`text-sm font-bold ${i === 3 ? "text-pg-gold" : "text-pg-gold-dark"}`}>Cấp {i + 1}</span>
                 <h3 className={`mt-1 text-xl font-extrabold ${i === 3 ? "text-white" : ""}`}>{tier.name}</h3>
@@ -65,7 +65,7 @@ export default function DealerPage() {
       </section>
 
       <section className="mx-auto mt-14 max-w-6xl px-4">
-        <h2 className="text-2xl font-extrabold md:text-3xl">Quy trình hợp tác 4 bước</h2>
+        <h2 className="title-grad text-2xl font-extrabold md:text-3xl">Quy trình hợp tác 4 bước</h2>
         <ol className="relative mt-6 grid gap-4 md:grid-cols-4">
           <span aria-hidden className="absolute left-6 top-6 hidden h-0.5 w-[calc(100%-3rem)] bg-gradient-to-r from-pg-gold via-pg-blue/30 to-pg-gold md:block" />
           {dealerSteps.map((s, i) => (
@@ -79,9 +79,9 @@ export default function DealerPage() {
 
       <section id="dang-ky" className="mx-auto mt-14 grid max-w-6xl scroll-mt-24 gap-8 px-4 lg:grid-cols-[1fr_1.3fr]">
         <div>
-          <h2 className="text-2xl font-extrabold md:text-3xl">Đăng ký làm đại lý / NPP</h2>
+          <h2 className="title-grad text-2xl font-extrabold md:text-3xl">Đăng ký làm đại lý / NPP</h2>
           <p className="mt-3 leading-relaxed text-ink/80">Điền thông tin, PG Food sẽ liên hệ tư vấn và gửi báo giá phù hợp với khu vực của bạn. Hoặc gọi ngay:</p>
-          <a href={`tel:${site.hotlineRaw}`} className="btn btn-blue neon-box-blue mt-5 text-lg"><PhoneIcon width={20} height={20} /> {site.hotline}</a>
+          <a href={`tel:${site.hotlineRaw}`} className="btn btn-blue btn-shine neon-box-blue mt-5 text-lg"><PhoneIcon width={20} height={20} /> {site.hotline}</a>
         </div>
         <DealerForm />
       </section>

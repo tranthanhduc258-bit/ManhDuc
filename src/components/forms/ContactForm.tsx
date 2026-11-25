@@ -25,7 +25,7 @@ export function ContactForm() {
     return (
       <div className="rounded-3xl bg-white p-8 text-center ring-1 ring-pg-blue/10" role="status">
         <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-pg-green text-white"><CheckIcon width={32} height={32} /></span>
-        <h2 className="mt-4 text-2xl font-extrabold">Đã gửi liên hệ!</h2>
+        <h2 className="title-grad mt-4 text-2xl font-extrabold">Đã gửi liên hệ!</h2>
         <p className="mt-2 text-ink/80">Cảm ơn bạn. PG Food sẽ phản hồi trong thời gian sớm nhất.</p>
       </div>
     );
@@ -42,7 +42,7 @@ export function ContactForm() {
       <Field as="textarea" name="message" label="Nội dung" required rows={4} error={errors.message} />
       <Consent error={errors.consent} />
       <FormMessage text={message} />
-      <button type="submit" disabled={sending} className="btn btn-blue w-full text-lg">{sending ? t.order.sending : "Gửi liên hệ"}</button>
+      <button type="submit" disabled={sending} className="btn btn-blue btn-shine w-full text-lg">{sending ? t.order.sending : "Gửi liên hệ"}</button>
     </form>
   );
 }

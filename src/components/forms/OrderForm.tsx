@@ -71,7 +71,7 @@ export function OrderForm() {
       <Honeypot />
       <fieldset id="chon-san-pham" tabIndex={-1} className="h-fit rounded-3xl bg-white p-5 ring-1 ring-pg-blue/5 focus:outline-none md:p-7">
         <legend className="sr-only">{t.order.chooseProducts}</legend>
-        <h2 className="text-xl font-extrabold">1. {t.order.chooseProducts}</h2>
+        <h2 className="title-grad text-xl font-extrabold">1. {t.order.chooseProducts}</h2>
         <p className="mt-1 text-sm text-ink/70">{t.order.chooseProductsHint}</p>
         <AnimatePresence initial={false}>
           {items.length > 0 && (
@@ -157,7 +157,7 @@ export function OrderForm() {
       </fieldset>
 
       <div className="h-fit space-y-4 rounded-3xl bg-cream p-5 md:p-7 lg:sticky lg:top-24">
-        <h2 className="text-xl font-extrabold">2. {t.order.yourInfo}</h2>
+        <h2 className="title-grad text-xl font-extrabold">2. {t.order.yourInfo}</h2>
         <Field name="name" label={t.order.name} required autoComplete="name" error={errors.name} />
         <Field name="phone" label={t.order.phone} required type="tel" inputMode="tel" autoComplete="tel" placeholder="0856 791 816" error={errors.phone} />
         <Field as="select" name="province" label={t.order.province} required error={errors.province} defaultValue="">
@@ -171,7 +171,7 @@ export function OrderForm() {
         </p>
         <Consent error={errors.consent} />
         <FormMessage text={hint || message} />
-        <button type="submit" disabled={sending} className="btn btn-red w-full text-lg">
+        <button type="submit" disabled={sending} className="btn btn-red btn-shine w-full text-lg">
           {sending ? t.order.sending : t.order.submit}
         </button>
       </div>

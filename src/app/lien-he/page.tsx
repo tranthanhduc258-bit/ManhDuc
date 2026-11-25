@@ -52,7 +52,7 @@ export default function ContactPage() {
           </div>
         </div>
         <div>
-          <h2 className="mb-4 text-2xl font-extrabold">Gửi lời nhắn</h2>
+          <h2 className="title-grad mb-4 text-2xl font-extrabold">Gửi lời nhắn</h2>
           <ContactForm />
         </div>
       </section>

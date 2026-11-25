@@ -52,7 +52,7 @@ export default async function ProductDetail({ params }: Props) {
           <Gallery images={p.images} alt={p.name} />
           <div>
             {cat && <p className="text-sm font-bold uppercase tracking-wider text-pg-red">{cat.name}</p>}
-            <h1 className="mt-1 text-2xl font-extrabold leading-snug md:text-3xl">{p.name}</h1>
+            <h1 className="title-grad mt-1 text-2xl font-extrabold leading-snug md:text-3xl">{p.name}</h1>
             <p className="mt-2 text-ink/75">{t.common.size}: <strong className="text-pg-blue">{p.size}</strong></p>
             <div className="mt-4 flex items-baseline gap-3">
               <span className="text-sm text-ink/70">{t.common.retailPrice}:</span>
@@ -81,7 +81,7 @@ export default async function ProductDetail({ params }: Props) {
 
         {related.length > 0 && (
           <section className="mt-12">
-            <h2 className="mb-5 text-2xl font-extrabold">Sản phẩm khác</h2>
+            <h2 className="title-grad mb-5 text-2xl font-extrabold">Sản phẩm khác</h2>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((r) => <ProductCard key={r.slug} product={r} />)}
             </div>

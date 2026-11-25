@@ -24,7 +24,7 @@ export default function AboutPage() {
 
       <section className="mx-auto grid max-w-6xl gap-5 px-4 pt-4 md:grid-cols-2">
         {[about.mission, about.vision].map((b, i) => (
-          <Reveal key={b.title} delay={i * 0.08} className="h-full">
+          <Reveal key={b.title} delay={i * 0.1} className="h-full">
             <div className={`h-full rounded-3xl p-6 md:p-8 ${i === 0 ? "bg-pg-blue text-white" : "bg-cream"}`}>
               <h2 className={`text-2xl font-extrabold ${i === 0 ? "text-pg-gold" : ""}`}>{b.title}</h2>
               <p className={`mt-3 text-lg leading-relaxed ${i === 0 ? "text-white/90" : "text-ink/80"}`}>{b.text}</p>
@@ -51,7 +51,7 @@ export default function AboutPage() {
       </section>
 
       <section className="mx-auto mt-14 max-w-6xl px-4">
-        <h2 className="text-2xl font-extrabold md:text-3xl">Giá trị cốt lõi</h2>
+        <h2 className="title-grad text-2xl font-extrabold md:text-3xl">Giá trị cốt lõi</h2>
         <ul className="mt-5 grid gap-4 sm:grid-cols-3">
           {about.values.map((v, i) => {
             const Icon = valueIcons[i % valueIcons.length];
@@ -68,7 +68,7 @@ export default function AboutPage() {
 
       <section className="mx-auto mt-14 grid max-w-6xl items-start gap-8 px-4 md:grid-cols-2">
         <div>
-          <h2 className="text-2xl font-extrabold md:text-3xl">Thông tin doanh nghiệp</h2>
+          <h2 className="title-grad text-2xl font-extrabold md:text-3xl">Thông tin doanh nghiệp</h2>
           <dl className="mt-5 space-y-3 text-[15px]">
             {[
               ["Tên công ty", site.companyName],
@@ -84,7 +84,7 @@ export default function AboutPage() {
               </div>
             ))}
           </dl>
-          <Link href="/lien-he" className="btn btn-blue mt-6">Liên hệ với chúng tôi</Link>
+          <Link href="/lien-he" className="btn btn-blue btn-shine mt-6">Liên hệ với chúng tôi</Link>
         </div>
         <figure>
           {site.businessLicenseImage ? (

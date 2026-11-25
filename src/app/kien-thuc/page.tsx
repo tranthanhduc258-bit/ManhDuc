@@ -22,7 +22,7 @@ export default function KnowledgePage() {
         <ul className="grid gap-5 md:grid-cols-3">
           {articles.map((a, i) => (
             <li key={a.slug}>
-              <Reveal delay={i * 0.08} className="h-full">
+              <Reveal delay={i * 0.1} className="h-full">
                 <Link href={`/kien-thuc/${a.slug}`} className="product-card group flex h-full flex-col overflow-hidden rounded-3xl bg-white ring-1 ring-pg-green/15">
                   <div className="relative grid h-36 place-items-center overflow-hidden bg-gradient-to-br from-pg-green/15 via-cream to-pg-gold/15">
                     <BacteriaIcon width={64} height={64} className="product-img text-pg-green/60" />

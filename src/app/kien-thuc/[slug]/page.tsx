@@ -41,7 +41,7 @@ export default async function ArticlePage({ params }: Props) {
         </p>
       </article>
       <section className="mx-auto mt-12 max-w-3xl px-4">
-        <h2 className="text-xl font-extrabold">Bài viết liên quan</h2>
+        <h2 className="title-grad text-xl font-extrabold">Bài viết liên quan</h2>
         <ul className="mt-4 grid gap-4 sm:grid-cols-2">
           {related.map((r) => (
             <li key={r.slug}>

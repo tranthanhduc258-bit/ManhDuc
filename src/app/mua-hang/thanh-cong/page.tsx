@@ -19,7 +19,7 @@ export default async function ThankYou({ searchParams }: Props) {
         <span className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-pg-green text-white shadow-[0_0_30px_rgba(58,154,63,.45)]">
           <CheckIcon width={40} height={40} />
         </span>
-        <h1 className="mt-6 text-3xl font-extrabold">{t.order.thanks}</h1>
+        <h1 className="title-grad mt-6 text-3xl font-extrabold">{t.order.thanks}</h1>
         {code && (
           <p className="mt-4 text-lg">
             {t.order.orderCode}: <strong className="neon-red text-2xl tracking-wide">{code}</strong>
@@ -30,7 +30,7 @@ export default async function ThankYou({ searchParams }: Props) {
           Vui lòng để ý cuộc gọi từ số <b>{site.hotline}</b>.
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <Link href="/" className="btn btn-blue">{t.common.backHome}</Link>
+          <Link href="/" className="btn btn-blue btn-shine">{t.common.backHome}</Link>
           <a href={`tel:${site.hotlineRaw}`} className="btn btn-ghost"><PhoneIcon width={18} height={18} /> {site.hotline}</a>
         </div>
       </div>
